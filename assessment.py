@@ -1,3 +1,5 @@
+import collections
+
 """
 Part 1: Discussion
 
@@ -39,3 +41,90 @@ fluffy.name = "fluffy" # instance attribute
 
 # Parts 2 through 5:
 # Create your classes and class methods
+
+# Students
+
+# Class students can have first and last names and addresses.
+# Here is an example student. Write a class that can store data like this:
+
+# {'first_name': 'Jasmine',
+#  'last_name': 'Debugger',
+#  'address': '0101 Computer Street'}
+
+class Student(object):
+    """Class to store student data."""
+
+    def __init__(self, fname, lname, addr):
+        self.fname = fname
+        self.lname = lname
+        self.addr = addr
+
+    # student = {'first_name': fname,
+    #            'last_name': lname,
+    #            'address': address}
+
+    # return student
+
+
+# Questions:
+
+# Class questions include a question and a correct answer.
+# Here are two example questions. Write a class that can store data like this:
+
+# {'question': 'What is the capital of Alberta?',
+#  'correct_answer': 'Edmonton'}
+
+# {'question': 'Who is the author of Python?',
+#  'correct_answer': 'Guido Van Rossum'}
+
+class Question(object):
+    """Class to store exam questions."""
+
+    def __init__(self, q, a):
+        self.q = q
+        self.a = a
+
+    def ask_and_evaluate(self):
+        answer = raw_input(self.q)
+        if answer == self.a:
+            return True
+        else:
+            return False
+
+
+class Exam(object):
+    """Class to hold exam info"""
+
+    def __init__(self, exname):
+        self.exaname = exname
+        self.questions = []
+
+    def add_question(self, q, ans):
+        self.questions.append((q, ans))
+
+    def administer(self):
+        score = 0
+        count = 0
+        for ques, ans in self.questions:
+            count += 1
+            new_question = Question(ques, ans)
+            if new_question.ask_and_evaluate() is True:
+                score += 1
+        total_score = (score * 100) / count
+        return "Score %: " + str(total_score)
+
+
+def take_test(exam, student):
+    """Administers test and prints student score"""
+
+    student.score = exam.administer()
+    print student.score
+
+
+def example():
+    """Run a test exam."""
+
+    test_exam = Exam("Test")
+    test_exam.add_question("what is your favorite color? >>> ", "blue")
+    test_student = Student("Joe", "Dirt", "1313 Mockingbird Lane")
+    take_test(test_exam, test_student)
