@@ -1,5 +1,3 @@
-import collections
-
 """
 Part 1: Discussion
 
